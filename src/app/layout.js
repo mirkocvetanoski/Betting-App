@@ -1,7 +1,9 @@
-import { Inter } from "next/font/google";
+import Header from "./components/header/header";
+import Layout from "./components/layout/layout";
+import PageLayout from "./components/layout/pageLayout";
+import Sidebar from "./components/sidebar/sidebar";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { AuthProvider } from "./Providers";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +13,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <AuthProvider>
+          <Layout>
+            <Header />
+            <div className="flex h-screen w-full">
+              <Sidebar />
+              <PageLayout>{children}</PageLayout>
+            </div>
+          </Layout>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
